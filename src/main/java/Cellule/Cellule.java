@@ -1,6 +1,10 @@
 package Cellule;
 
+import GrilleCellule.JeuDeLaVie;
+
 public class Cellule implements CelluleEtat{
+
+  int x, y;
   CelluleEtat etat;
 
   public Cellule(){
@@ -21,4 +25,22 @@ public class Cellule implements CelluleEtat{
   public boolean estVivant() {
     return this.etat.estVivant();
   }
+
+  int nombreVoisinesVivantes(JeuDeLaVie jeu) {
+    int nb = 0;
+    for (int i = x - 1; i <= x + 1; i++) {
+      for (int j = y - 1; j <= y + 1; j++) {
+        if (i >= 0 && i < jeu.getGrille().x && j >= 0 && j < jeu.getGrille().y) {
+          if (jeu.getGrille().getTab()[i][j].estVivant()) {
+            nb++;
+          }
+        }
+      }
+    }
+    if (this.estVivant()) {
+      nb--;
+    }
+    return nb;
+  }
+
 }
